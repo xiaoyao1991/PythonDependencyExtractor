@@ -81,7 +81,7 @@ class DependencyExtracter(object):
                     if candidate and candidate not in self.builtin_modules:
                         self.modules.add(candidate)
                         
-                        if candidate == '0':
+                        if candidate == '0':    #debug
                             print fp
                     
             elif line_tokens and line_tokens[0] == 'from':
@@ -89,7 +89,7 @@ class DependencyExtracter(object):
                 if candidate and candidate not in self.builtin_modules:
                     self.modules.add(line_tokens[1].split('.')[0])
                     
-                    if candidate == '0':
+                    if candidate == '0':    #debug
                         print fp
 
         fp_opener.close()
@@ -103,6 +103,10 @@ class DependencyExtracter(object):
                 self.extract_in_dir(fp+content)
             else:
                 self.extract_in_file(fp+content)
+
+    def output(self):
+        for module in self.modules:
+            print module
 
 
 def main():
@@ -124,15 +128,15 @@ def main():
             exit(1)
         else:
             extractor.extract_in_dir(fp)
-            return extractor.modules
+            extractor.output()
     else:   #single file
         if isdir(fp):
             log_err('[Error] "%s" is a directory, try to use -r flag.' % fp)
             exit(1)
         else:
             extractor.extract_in_file(fp)
-            return extractor.modules
+            extractor.output()
 
 
 if __name__ == '__main__':
-    print main()
+    main()
