@@ -6,4 +6,4 @@ This script will extract the dependencies of a python file, or a directory that 
 
 #### TODO:  
 1. Avoid comment area (Done)
-2. Eliminate project modules
+2. Eliminate project modules (Done)
